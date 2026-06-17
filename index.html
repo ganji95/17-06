@@ -3,149 +3,144 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Un repas chez Cédric Grolet ❤️</title>
+<title>Un repas chez Cédric Grolet</title>
 
 <style>
-* {
-    box-sizing: border-box;
-}
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap');
 
 body {
     margin: 0;
-    font-family: "Georgia", serif;
-    background: linear-gradient(135deg, #fff1f2, #ffe4e6);
-    color: #5a1a25;
-    text-align: center;
-}
-
-.hero {
     height: 100vh;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 30px;
-    background:
-    linear-gradient(rgba(255,255,255,.55), rgba(255,255,255,.55)),
-    url("restaurant.jpg") center/cover;
+    font-family: 'Playfair Display', serif;
+    background: radial-gradient(circle at center, #ffe9d6, #f5d3b5, #e8bfa0);
+    overflow: hidden;
 }
 
-h1 {
-    font-size: 4rem;
-    max-width: 900px;
-    margin: 0;
-    text-shadow: 0 3px 15px white;
+/* fond animé léger */
+body::before {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.35) 1px, transparent 1px);
+    background-size: 70px 70px;
+    animation: floatBg 25s linear infinite;
+    opacity: 0.5;
 }
 
-.subtitle {
-    font-size: 1.5rem;
-    margin-top: 25px;
+@keyframes floatBg {
+    from { transform: translate(0,0); }
+    to { transform: translate(-150px,-150px); }
 }
 
+/* particules douces supplémentaires */
+.particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: rgba(255,255,255,0.7);
+    border-radius: 50%;
+    animation: rise linear infinite;
+}
+
+@keyframes rise {
+    from { transform: translateY(100vh) scale(0.5); opacity: 0; }
+    to { transform: translateY(-10vh) scale(1); opacity: 0; }
+}
+
+.container {
+    text-align: center;
+    z-index: 2;
+    animation: fadeIn 2s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* cœur avec respiration */
 .heart {
-    font-size: 60px;
-    animation: pulse 1.5s infinite;
+    font-size: 80px;
+    color: #e60023;
+    text-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    animation: pulse 2.5s infinite ease-in-out;
 }
 
 @keyframes pulse {
-    50% {
-        transform: scale(1.2);
-    }
+    0%, 100% { transform: scale(1); filter: brightness(1); }
+    50% { transform: scale(1.12); filter: brightness(1.2); }
 }
 
-.section {
-    padding: 70px 20px;
+h1 {
+    margin-top: 20px;
+    font-size: 28px;
+    color: #6b2d2d;
 }
 
-.card {
-    max-width: 700px;
-    margin: auto;
-    background: white;
-    padding: 35px;
-    border-radius: 25px;
-    box-shadow: 0 10px 30px #d9a0aa;
-    font-size: 1.3rem;
-    line-height: 1.7;
+h2 {
+    font-size: 64px;
+    margin: 10px 0;
+    color: #5a1f1f;
+    transition: transform 0.2s ease;
 }
 
-.gallery {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
+.decor {
+    width: 200px;
+    height: 2px;
+    margin: 20px auto;
+    background: linear-gradient(to right, transparent, #b8865b, transparent);
+    position: relative;
 }
 
-.gallery img {
-    width: 280px;
-    height: 220px;
-    object-fit: cover;
-    border-radius: 20px;
+.decor::after {
+    content: "❦";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -10px;
+    color: #b8865b;
 }
 
-footer {
-    padding: 40px;
-    font-size: 1.2rem;
+/* petit effet hover subtil */
+.container:hover h2 {
+    transform: scale(1.03);
 }
 </style>
 </head>
 
 <body>
 
-<section class="hero">
+<div class="container">
     <div class="heart">❤️</div>
-
-    <h1>
-        Un repas chez<br>
-        Cédric Grolet
-    </h1>
-
-    <div class="subtitle">
-        Une surprise pour la femme que j'aime ✨
-    </div>
-</section>
-
-
-<section class="section">
-
-<div class="card">
-
-<h2>Pour toi ❤️</h2>
-
-<p>
-Parce que tu mérites un moment exceptionnel,
-j'ai préparé cette petite surprise rien que pour toi.
-</p>
-
-<p>
-Un dîner, des souvenirs, des sourires...
-et surtout un moment à deux.
-</p>
-
+    <h1>Un repas chez</h1>
+    <h2>Cédric Grolet</h2>
+    <div class="decor"></div>
 </div>
 
-</section>
+<script>
+// création de particules douces
+for (let i = 0; i < 25; i++) {
+    const p = document.createElement("div");
+    p.classList.add("particle");
+    p.style.left = Math.random() * 100 + "vw";
+    p.style.animationDuration = (5 + Math.random() * 10) + "s";
+    p.style.animationDelay = Math.random() * 5 + "s";
+    document.body.appendChild(p);
+}
 
+// léger mouvement parallax souris
+document.addEventListener("mousemove", (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 10;
+    const y = (e.clientY / window.innerHeight - 0.5) * 10;
 
-<section class="section">
-
-<h2>Quelques souvenirs 📸</h2>
-
-<div class="gallery">
-
-<img src="photo1.jpg">
-<img src="photo2.jpg">
-<img src="photo3.jpg">
-
-</div>
-
-</section>
-
-
-<footer>
-Avec tout mon amour ❤️
-</footer>
-
+    document.querySelector(".container").style.transform =
+        `translate(${x}px, ${y}px)`;
+});
+</script>
 
 </body>
 </html>
